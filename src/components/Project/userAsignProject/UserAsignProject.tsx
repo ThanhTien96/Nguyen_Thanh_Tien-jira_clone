@@ -38,7 +38,7 @@ const UserAsignProject: React.FC = () => {
                 text: 'Add user to project success fully!',
                 showConfirmButton: true,
             })
-            Navigate('/project')
+            navigate('/project')
         } catch (err: any) {
             await Swal.fire({
                 position: 'center',
