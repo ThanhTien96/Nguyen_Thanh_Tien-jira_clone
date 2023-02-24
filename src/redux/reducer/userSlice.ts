@@ -34,7 +34,7 @@ export const userSlice = createSlice({
   name: 'userSlice',
   initialState,
   reducers: {
-    fetchApiLoginAction: (state, action: any) => {
+    fetchApiLoginAction: (state, action: any ) => {
       state.profile = action.payload;
     },
   },

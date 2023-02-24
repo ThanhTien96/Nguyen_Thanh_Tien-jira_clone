@@ -1,7 +1,7 @@
-
-import { useEffect } from 'react';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import React, { useEffect } from "react";
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './App.css';
+import AppRoute from "./HOC/AppRoute";
 import CreateProject from './pages/projectPage/createProject/CreateProject';
 import EditProject from './pages/projectPage/EditProject/EditProject';
 import ProjectPage from './pages/projectPage/ProjectPage';
@@ -30,10 +30,10 @@ function App() {
         </Route>
 
         <Route path='/project' element={<HomeTemplate />}>
-          <Route path='' element={<ProjectPage />} />
-          <Route path='/project/create-project' element={<CreateProject />} />
-          <Route path='/project/edit/:id' element={<EditProject />} />
-          <Route path='/project/board/:id' element={<TaskBoardPage />} />
+          <Route path='' element={<AppRoute component={ProjectPage} isAdmin />} />
+          <Route path='/project/create-project' element={<AppRoute component={CreateProject} isAdmin />} />
+          <Route path='/project/edit/:id' element={<AppRoute component={EditProject} isAdmin />} />
+          <Route path='/project/board/:id' element={<AppRoute component={TaskBoardPage} isAdmin />} />
         </Route>
 
       </Routes>
