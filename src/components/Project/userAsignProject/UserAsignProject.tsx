@@ -6,12 +6,13 @@ import { Input } from 'antd';
 import { asignUserType } from '../../../types/projectType';
 import { projectService } from '../../../services/projectServices';
 import Swal from 'sweetalert2';
+import { useNavigate } from 'react-router';
 
 const UserAsignProject: React.FC = () => {
 
     const { projectDetail } = useSelector((state: RootState) => state.projectSlice);
     const { userList } = useSelector((state: RootState) => state.userSlice);
-
+    const navigate = useNavigate();
 
     // tìm kiếm khóa học
     const { Search } = Input;
@@ -22,8 +23,7 @@ const UserAsignProject: React.FC = () => {
 
         }
     };
-    console.log(userList)
-    console.log()
+    
 
 
     const fetchApiAsignUserProject = async (id: number) => {
@@ -32,7 +32,13 @@ const UserAsignProject: React.FC = () => {
             const idBE: number = projectID * 1;
             let data: asignUserType = { projectId: idBE, userId: id }
             const res = await projectService.asignUserProject(data);
-            console.log(res);
+            await Swal.fire({
+                position: 'center',
+                icon: 'success',
+                text: 'Add user to project success fully!',
+                showConfirmButton: true,
+            })
+            Navigate('/project')
         } catch (err: any) {
             await Swal.fire({
                 position: 'center',
