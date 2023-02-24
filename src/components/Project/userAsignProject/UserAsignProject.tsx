@@ -31,7 +31,7 @@ const UserAsignProject: React.FC = () => {
             const projectID: any = projectDetail?.id;
             const idBE: number = projectID * 1;
             let data: asignUserType = { projectId: idBE, userId: id }
-            const res = await projectService.asignUserProject(data);
+            await projectService.asignUserProject(data);
             await Swal.fire({
                 position: 'center',
                 icon: 'success',
