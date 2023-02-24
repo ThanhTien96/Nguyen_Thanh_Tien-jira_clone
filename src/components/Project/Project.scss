@@ -1,0 +1,73 @@
+.members {
+    display: flex;
+    position: relative;
+
+    .memberShow {
+        position: relative;
+        cursor: pointer;
+        margin-right: -5px;
+        border: 1px solid white;
+        @apply uppercase w-8 h-8 leading-8 rounded-full bg-gray-300 text-center;
+        span {
+            position: absolute;
+            top: -160%;
+            left: 0;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 5px;
+            text-transform: capitalize;
+            width: 150px;
+            visibility: hidden;
+            &::after {
+                content: '';
+                border-top: 5px solid rgba(0, 0, 0, 0.7);
+                border-right: 5px solid transparent;
+                border-left: 5px solid transparent;
+                position: absolute;
+                bottom: -12%;
+                left: 7%;
+            }
+        }
+        &:hover span{
+            visibility: visible;
+        }
+    }
+
+    .increaseMember {
+        position: relative;
+        .membersMore {
+            position: absolute;
+            padding: 10px;
+            background-color: white;
+            display: flex;
+            box-shadow: 0px 0px 12px #80808075;
+            top: -180%;
+            left: 50%;
+            transform: translateX(-50%);
+            visibility: hidden;
+            &::after{
+                content: '';
+                position: absolute;
+                bottom: -12%;
+                left: 50%;
+                transform: translateX(-50%);
+                border-top: 7px solid white;
+                border-right: 7px solid transparent;
+                border-left: 7px solid transparent;
+
+            }
+            .memberShow{
+                margin-right: 5px;
+            }
+            
+        }
+        .seeMoreMember{
+            @apply w-8 h-8 leading-8 rounded-full bg-rose-200 text-center border border-solid border-white cursor-pointer;
+            color: red;
+        }
+        &:hover .membersMore{
+            visibility: visible;
+        }
+    }
+
+}
