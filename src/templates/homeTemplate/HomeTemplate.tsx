@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import {
+    DesktopOutlined,
     FileOutlined,
     FileProtectOutlined,
+    TeamOutlined,
     FileAddOutlined,
 } from '@ant-design/icons';
 import type { MenuProps } from 'antd';
@@ -38,8 +40,11 @@ const HomeTemplate: React.FC = () => {
     const [collapsed, setCollapsed] = useState(false);
     const {modelController} = useSelector((state: RootState) => state.projectSlice);
     const dispatch = useDispatch();
+    const appDispatch = useAppDispatch();
 
-   
+    useEffect(() => {
+        appDispatch(fetchApiUserList(''));
+    }, [])
     // open task model
     const handleOpenTaskModel = () => {
         dispatch(changeModelControlAction(true))
