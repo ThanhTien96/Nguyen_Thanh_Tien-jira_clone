@@ -14,6 +14,7 @@ export const projectApiPath = {
     GET_PROJECT_DETAIL: '/api/Project/getProjectDetail',
     UPDATE_PROJECT: '/api/Project/updateProject',
     ASIGN_USER_PROJECT: '/api/Project/assignUserProject',
+    REMOVE_USER_FROM_PROJECT: '/api/Project/removeUserFromProject',
 }
 
 // task api

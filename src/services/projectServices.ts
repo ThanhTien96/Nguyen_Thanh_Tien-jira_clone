@@ -63,7 +63,16 @@ class ProjectService {
                 projectId: id
             }
         })
-    }
+    };
+
+    // xoa nguoi dung khoi project
+    fetchApiRemoveUserProject = (data:asignUserType) => {
+        return requester ({
+            url: projectApiPath.REMOVE_USER_FROM_PROJECT,
+            method: 'POST',
+            data: data,
+        });
+    };
 };
 
 export const projectService = new ProjectService();

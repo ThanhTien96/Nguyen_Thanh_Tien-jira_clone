@@ -21,6 +21,8 @@ class UserService {
         });
     };
 
+    // lay danh sach user
+
     fetApiGetAllUser = (keyWord:string = '') => {
         return requester({
             url: userApiPath.GET_ALL_USER,

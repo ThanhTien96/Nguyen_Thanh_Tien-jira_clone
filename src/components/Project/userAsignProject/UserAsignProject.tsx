@@ -1,5 +1,5 @@
 import { Col, Row } from 'antd'
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import { useSelector } from 'react-redux';
 import { RootState, useAppDispatch } from '../../../redux/configStore';
 import { Input } from 'antd';
@@ -20,7 +20,6 @@ const UserAsignProject: React.FC = () => {
     // tìm kiếm khóa học
     const { Search } = Input;
     const onSearch = (value: string) => {
-        console.log(value)
         if (value.length >= 1) {
             dispatch(fetchApiUserList(value));
         } else {
@@ -29,23 +28,49 @@ const UserAsignProject: React.FC = () => {
     };
 
     const userMap = _.xorBy( userList,projectDetail?.members,'userId');
+    
 
-    console.log(userMap)
-
-
+    // them nguoi dung vao project
     const fetchApiAsignUserProject = async (id: number) => {
         try {
             const projectID: any = projectDetail?.id;
             const idBE: number = projectID * 1;
             let data: asignUserType = { projectId: idBE, userId: id }
-            await projectService.asignUserProject(data);
+            const res = await projectService.asignUserProject(data);
+            await dispatch(fetchApiUserList(''));
             await Swal.fire({
                 position: 'center',
                 icon: 'success',
-                text: 'Add user to project success fully!',
+                text: res.data.massage,
                 showConfirmButton: true,
             })
-            navigate('/project')
+            navigate('/project');
+        } catch (err: any) {
+            await Swal.fire({
+                position: 'center',
+                icon: 'error',
+                text: err.response.data.message,
+                showConfirmButton: true,
+            })
+        }
+    }
+
+    // xoas nguoi dung vao project
+    const fetchApiRemoveUserProject = async (id: number) => {
+        try {
+            const projectID: any = projectDetail?.id;
+            const idBE: number = projectID * 1;
+            let data: asignUserType = { projectId: idBE, userId: id }
+            const res = await projectService.fetchApiRemoveUserProject(data);
+            await dispatch(fetchApiUserList(''));
+            
+            await Swal.fire({
+                position: 'center',
+                icon: 'success',
+                text: res.data.massage,
+                showConfirmButton: true,
+            })
+            navigate('/project');
         } catch (err: any) {
             await Swal.fire({
                 position: 'center',
@@ -101,7 +126,9 @@ const UserAsignProject: React.FC = () => {
                                             <p>User ID: {user.userId}</p>
                                         </div>
                                     </div>
-                                    <button className='text-[14px] font-semibold px-3 py-1 rounded-md bg-red-600 text-white hover:bg-red-500 transition-all duration-200'>Remove</button>
+                                    <button 
+                                    onClick={() => fetchApiRemoveUserProject(user.userId)}
+                                    className='text-[14px] font-semibold px-3 py-1 rounded-md bg-red-600 text-white hover:bg-red-500 transition-all duration-200'>Remove</button>
                                 </div>
                             )
 
