@@ -57,7 +57,6 @@ const EditTask: React.FC = () => {
             priorityId: taskDetail?.priorityId,
         },
         onSubmit: async (value: any) => {
-            console.log(value);
             try {
                 const res = await taskService.fetchApiUpdateTask(value);
                 await Swal.fire({
