@@ -3,6 +3,7 @@ import { Col, Modal, Row } from 'antd';
 import clsx from 'clsx';
 import React, { useState, useRef } from 'react';
 import { useSelector } from 'react-redux';
+import { NavLink } from 'react-router-dom';
 import { RootState } from '../../../redux/configStore';
 import { truncateText } from '../../../utils';
 import EditTask from '../EditTask';
@@ -37,10 +38,7 @@ const TaskControl: React.FC = () => {
 
                                 {ele.lstTaskDeTail.map((taskDetail: any, index: number) => {
                                     return (
-                                        <div onClick={() => {
-                                            taskIDRef.current = taskDetail.taskId
-                                            setOpen(true);
-                                        }} key={index} className='bg-white p-2 mt-3 rounded-md shadow-sm'>
+                                        <NavLink to={`/project/edit-task/${taskDetail.taskId}`} key={index} className='block hover:text-black bg-white p-2 mt-3 rounded-md shadow-sm'>
                                             <p className='py-3'>{taskDetail.taskName}</p>
                                             <div className='flex justify-between items-center'>
                                                 <p>
@@ -67,7 +65,7 @@ const TaskControl: React.FC = () => {
                                                 </div>
 
                                             </div>
-                                        </div>
+                                        </NavLink>
                                     )
                                 })}
                             </div>
@@ -76,7 +74,7 @@ const TaskControl: React.FC = () => {
                 })
             }
 
-            <Modal
+            {/* <Modal
                 centered
                 open={open}
                 closable={true}
@@ -85,7 +83,7 @@ const TaskControl: React.FC = () => {
                 width={1000}
             >
                 <EditTask taskIDRef={taskIDRef.current} />
-            </Modal>
+            </Modal> */}
 
 
 
