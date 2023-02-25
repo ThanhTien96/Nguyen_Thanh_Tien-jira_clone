@@ -21,7 +21,7 @@ export const fetchApiUserList = createAsyncThunk(
   async (key: any, thunkAPI) => {
     try {
 
-      const res = await userService.fetApiGetAllUser();
+      const res = await userService.fetApiGetAllUser(key);
       return res.data.content;
     } catch (err) {
       console.log(err);

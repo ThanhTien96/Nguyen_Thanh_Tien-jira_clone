@@ -1,29 +1,36 @@
 import { Col, Row } from 'antd'
 import React from 'react'
 import { useSelector } from 'react-redux';
-import { RootState } from '../../../redux/configStore';
+import { RootState, useAppDispatch } from '../../../redux/configStore';
 import { Input } from 'antd';
 import { asignUserType } from '../../../types/projectType';
 import { projectService } from '../../../services/projectServices';
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router';
+import { fetchApiUserList } from '../../../redux/reducer/userSlice';
+const _ = require('lodash');
 
 const UserAsignProject: React.FC = () => {
 
     const { projectDetail } = useSelector((state: RootState) => state.projectSlice);
     const { userList } = useSelector((state: RootState) => state.userSlice);
     const navigate = useNavigate();
+    const dispatch = useAppDispatch()
 
     // tìm kiếm khóa học
     const { Search } = Input;
     const onSearch = (value: string) => {
+        console.log(value)
         if (value.length >= 1) {
-
+            dispatch(fetchApiUserList(value));
         } else {
-
+            dispatch(fetchApiUserList(''));
         }
     };
-    
+
+    const userMap = _.xorBy( userList,projectDetail?.members,'userId');
+
+    console.log(userMap)
 
 
     const fetchApiAsignUserProject = async (id: number) => {
@@ -57,7 +64,7 @@ const UserAsignProject: React.FC = () => {
             <Row className='mt-5'>
                 <Col span={12} className='h-96 overflow-scroll px-2'>
                     {
-                        userList.map((ele: any, index: number) => {
+                        userMap.map((ele: any, index: number) => {
                             return (
 
                                 <div key={index} className='flex justify-between items-center border-b border-solid border-gray-300 last-of-type:border-none py-5'>
