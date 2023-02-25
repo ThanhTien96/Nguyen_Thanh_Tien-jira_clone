@@ -1,4 +1,4 @@
-import { createTaskType, updateTaskType } from "../types/taskType"
+import { createComment, createTaskType, updateTaskType } from "../types/taskType"
 import { taskApiPath } from "../utils/apiPath"
 import requester from "./apiRequester"
 
@@ -57,6 +57,15 @@ class TaskService {
             url: taskApiPath.UPDATE_TASK,
             method: 'POST',
             data: data,
+        })
+    }
+
+    // create comment
+    fetchApiCreateComment = (data: createComment) => {
+        return requester({
+            url: taskApiPath.CREATE_COMMENT,
+            method: 'POST',
+            data:data
         })
     }
     

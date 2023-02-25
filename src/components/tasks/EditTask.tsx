@@ -70,7 +70,7 @@ const EditTask: React.FC<EditProp> = (props) => {
                     showCancelButton: false,
                 })
                 navigate('/project');
-            } catch (err:any) {
+            } catch (err: any) {
                 console.log(err);
                 await Swal.fire({
                     position: 'center',
@@ -147,20 +147,31 @@ const EditTask: React.FC<EditProp> = (props) => {
     }
 
     // set value Estimated hour
-    const handleSetEstimated = (value:any) => {
-        const num:number = value;
+    const handleSetEstimated = (value: any) => {
+        const num: number = value;
         formik.setFieldValue('originalEstimate', num);
     };
 
     // set value spent hour
-    const handleSetSpent = (value:any) => {
-        const num:number = value;
+    const handleSetSpent = (value: any) => {
+        const num: number = value;
         formik.setFieldValue('timeTrackingSpent', num);
     };
 
     //comment
-    const textChangeComment = (e: any) => {
+    const textChangeComment = async (e: any) => {
         const data = e.target.getContent();
+        try {
+            const dataModel = {
+                taskId: props.taskIDRef,
+                contentComment: data,
+            }
+            const res = taskService.fetchApiCreateComment(dataModel);
+            console.log(res);
+        } catch (err) {
+            console.log(err);
+        }
+
     }
 
     return (
@@ -208,24 +219,26 @@ const EditTask: React.FC<EditProp> = (props) => {
 
                             {
                                 inputComment &&
-                                <Editor
-                                    onChange={textChangeComment}
-                                    apiKey="wumtctoa4zi0a1l66upxgydpoqz6d9jqqw9d26a862f6gfia"
-                                    init={{
-                                        height: 200,
-                                        menubar: false,
-                                        plugins: [
-                                            'advlist autolink lists link image charmap print preview anchor',
-                                            'searchreplace visualblocks code fullscreen',
-                                            'insertdatetime media table paste code help wordcount'
-                                        ],
-                                        toolbar: 'undo redo | formatselect | ' +
-                                            'bold italic backcolor forecolor fontsize | alignleft aligncenter  ' +
-                                            'alignright alignjustify | bullist numlist outdent indent | ' +
-                                            'removeformat | help',
-                                        content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
-                                    }}
-                                />
+                                <div>
+                                    <Editor
+                                        apiKey="wumtctoa4zi0a1l66upxgydpoqz6d9jqqw9d26a862f6gfia"
+                                        init={{
+                                            height: 200,
+                                            menubar: false,
+                                            plugins: [
+                                                'advlist autolink lists link image charmap print preview anchor',
+                                                'searchreplace visualblocks code fullscreen',
+                                                'insertdatetime media table paste code help wordcount'
+                                            ],
+                                            toolbar: 'undo redo | formatselect | ' +
+                                                'bold italic backcolor forecolor fontsize | alignleft aligncenter  ' +
+                                                'alignright alignjustify | bullist numlist outdent indent | ' +
+                                                'removeformat | help',
+                                            content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
+                                        }}
+                                    />
+                                    <button onClick={textChangeComment} type='button' className='px-3 py-1 bg-sky-500 text-white font-semibold hover:bg-sky-700 transition-all duration-300 mt-3'>submit</button>
+                                </div>
                             }
                         </Form.Item>
                         {taskDetail?.lstComment.map((ele: any, index: number) => {
@@ -298,8 +311,8 @@ const EditTask: React.FC<EditProp> = (props) => {
                                 defaultValue={formik.values.originalEstimate - formik.values.timeTrackingSpent}
                             />
                             <div onClick={() => {
-                                    setOpen(true)
-                                }} className='flex justify-between font-medium'>
+                                setOpen(true)
+                            }} className='flex justify-between font-medium'>
                                 <h4>
                                     {formik.values.timeTrackingSpent}hour(s) spent
                                 </h4>
@@ -336,7 +349,7 @@ const EditTask: React.FC<EditProp> = (props) => {
                                 {formik.values.timeTrackingSpent} hour(s) spent
                             </h4>
                             <h4>
-                            {formik.values.originalEstimate - formik.values.timeTrackingSpent} hour(s) remaining
+                                {formik.values.originalEstimate - formik.values.timeTrackingSpent} hour(s) remaining
                             </h4>
                         </div>
                     </Form.Item>
@@ -344,7 +357,7 @@ const EditTask: React.FC<EditProp> = (props) => {
 
 
                     <Form.Item className='inline-block w-1/2' label='Estimated Hours' >
-                        <InputNumber onChange={ handleSetEstimated} defaultValue={formik.values.originalEstimate} type='number' style={{ width: '90%' }} />
+                        <InputNumber onChange={handleSetEstimated} defaultValue={formik.values.originalEstimate} type='number' style={{ width: '90%' }} />
                     </Form.Item>
                     <Form.Item className='inline-block w-1/2' label='Hours spent' >
                         <InputNumber

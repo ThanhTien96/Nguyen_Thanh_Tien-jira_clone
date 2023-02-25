@@ -31,3 +31,9 @@ export interface updateTaskType {
     typeId: number,
     priorityId: number
   }
+
+// create comment type
+export interface createComment {
+  taskId: number,
+  contentComment: string
+}

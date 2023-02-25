@@ -1,12 +1,12 @@
 
 // profile type;
 export interface Profile {
-    accessToken:string,
-    avatar:string,
-    email:string,
-    id:string,
-    name:string,
-    phoneNumber:string,
+    accessToken: string,
+    avatar: string,
+    email: string,
+    id: string,
+    name: string,
+    phoneNumber: string,
 };
 
 export interface LoginType {
@@ -22,9 +22,17 @@ export interface RegisterType {
     phone: string,
 }
 
-export interface membersType{
+export interface membersType {
     avatar: string;
     name: string;
     userId: number;
+}
+
+// register type
+export interface registerType {
+    email: string,
+    passWord: string,
+    name: string,
+    phoneNumber: string
 }
 

@@ -21,7 +21,7 @@ const Comment: React.FC <propsComment>= (props) => {
             <div className='ml-3'>
 
                 <p className='font-semibold text-lg text-gray-500 hover:text-black transition-all duration-500 cursor-pointer'>cyberLearn</p>
-                <div className='my-3'>{props.data.commentContent}</div>
+                <div className='my-3' dangerouslySetInnerHTML={{__html: props.data.commentContent}}></div>
 
                 <div>
                     <button className='mr-3 text-gray-500 font-semibold hover:text-black transition-all duration-200'>Edit</button>

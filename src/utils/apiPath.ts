@@ -26,5 +26,5 @@ export const taskApiPath = {
     CREATE_TASK: '/api/Project/createTask',
     GET_TASK_DETAIL: '/api/Project/getTaskDetail',
     UPDATE_TASK: '/api/Project/updateTask',
-    
+    CREATE_COMMENT: '/api/Comment/insertComment',
 }
